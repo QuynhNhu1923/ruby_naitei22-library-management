@@ -1,0 +1,35 @@
+.table {
+  th, td {
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  thead {
+    background-color: #f8f9fa;
+  }
+
+  th {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: #343a40;
+  }
+
+  td:first-child, th:first-child {
+    text-align: left;
+    padding-left: 1.5rem;
+  }
+
+  td:last-child, th:last-child {
+    padding-right: 1.5rem;
+  }
+
+  tr {
+    border-bottom: 1px solid #e990d4;
+  }
+
+  tbody tr:last-child {
+    border-bottom: none;
+  }
+}

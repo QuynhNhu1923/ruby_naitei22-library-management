@@ -43,3 +43,12 @@ en:
               invalid: "is not a valid date"
               in_future: "can't be in the future"
               past_max_year: "can't be more than 100 years ago"
+        borrow_request:
+          attributes:
+            end_date:
+              after_start_date: "The end date must be after the start date"
+            admin_note:
+              blank_if_rejected: "Admin note cannot be blank when status is rejected"
+            actual_return_date:
+              blank_if_returned: "Actual return date cannot be blank when status is returned"
+              cannot_be_future: "Actual return date cannot be in the future"

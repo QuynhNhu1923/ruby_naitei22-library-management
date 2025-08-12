@@ -1,0 +1,38 @@
+<%# app/views/admin/borrow_requests/change_status.turbo_stream.erb %>
+
+<%= turbo_stream.replace(
+      "status_form_#{@borrow_request.id}",
+      partial: "admin/borrow_requests/status_display",
+      locals: { borrow_request: @borrow_request }
+) %>
+
+<%= turbo_stream.replace(
+      "approved_by_#{@borrow_request.id}",
+      partial: "admin/borrow_requests/approved_by",
+      locals: { borrow_request: @borrow_request }
+) %>
+
+<%= turbo_stream.replace(
+      "rejected_by_#{@borrow_request.id}",
+      partial: "admin/borrow_requests/rejected_by",
+      locals: { borrow_request: @borrow_request }
+) %>
+
+<%= turbo_stream.replace(
+      "admin_note_#{@borrow_request.id}",
+      partial: "admin/borrow_requests/admin_note",
+      locals: { borrow_request: @borrow_request }
+) %>
+
+<%= turbo_stream.replace(
+      "returned_by_#{@borrow_request.id}",
+      partial: "admin/borrow_requests/returned_by",
+      locals: { borrow_request: @borrow_request }
+) %>
+
+<%= turbo_stream.replace(
+      "actual_return_date_#{@borrow_request.id}",
+      partial: "admin/borrow_requests/actual_return_date",
+      locals: { borrow_request: @borrow_request }
+) %>
+

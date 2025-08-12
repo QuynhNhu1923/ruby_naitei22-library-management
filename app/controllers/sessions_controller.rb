@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   before_action :find_user_and_validate, only: %i(create)
-  before_action :check_activeted, only: %i(create)
+  before_action :check_activated, only: %i(create)
   REMEMBER_ME_SELECTED = "1".freeze
 
   # GET /login

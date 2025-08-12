@@ -1,0 +1,4 @@
+<%= turbo_frame_tag "actual_return_date_#{borrow_request.id}" do %>
+  <input type="text" readonly class="form-control" 
+    value="<%= format_date(borrow_request.actual_return_date) || t(".not_available") %>">
+<%end%>

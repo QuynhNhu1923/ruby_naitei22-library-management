@@ -19,3 +19,8 @@ mailer:
   expire_hour: 2
 sizes:
   size_80: 80
+user:
+  default_avatar: "user/default_avatar.png"
+  default_cover: "user/default_cover.png"
+  avatar_size: "150x150"
+  cover_size: "300x200"

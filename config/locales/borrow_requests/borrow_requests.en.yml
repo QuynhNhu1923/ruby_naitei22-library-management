@@ -1,0 +1,75 @@
+en:
+  admin: 
+    borrow_requests:
+      status_form:
+        save: "Save"
+        cancel: "Cancel"
+      status_display:
+        change: "Change"
+      status:
+        pending: "Pending"
+        approved: "Approved"
+        rejected: "Rejected"
+        returned: "Returned"
+        overdue: "Overdue"
+      
+      index: 
+        title: "Borrow Requests Management"
+        id: "ID"
+        username: "Username"
+        request_date: "Request Date"
+        action: "Action"
+        status: "Status"
+        no_requests: "No borrow requests found"
+        action_view: "View"
+
+      show:
+        title: "Borrow requests items Management"
+        back: "← Back"
+        request_info: 
+          full_name: "Full name"
+          email: "Email"
+          start_date: "Start date"
+          end_date: "End date"
+          request_date: "Request date"
+        status_info: 
+          actual_return_date: "Actual return date"
+          admin_note: "Admin note"
+          approved_by: "Approved by"
+          rejected_by: "Rejected by"
+          returned_by: "Returned by"
+          not_available: "N/A"
+          not_rejected: "Not rejected"
+          not_returned: "Not returned"
+          not_approved: "Not approved"
+        book_borrowed:
+          title: "Borrowed Books"
+          book_cover: "Cover"
+          book_title: "Title"
+          book_author: "Author"
+          book_published_year: "Published Year"
+          borrowed_quantity: "Quantity"
+          no_books: "No books borrowed"
+
+      status_change: "Status change"
+      change_status: 
+        title: "Change status"
+        no_change: "No changes made to the status"
+        status_updated: "Status updated successfully"
+
+      validate_actual_return_date:
+        invalid_format: "Invalid date format"
+        past_date: "The actual return date cannot be in the past"
+        future_date: "The actual return date cannot be in the future"
+
+      actual_return_date:
+        not_available: "N/A"
+      admin_note:
+        no_note: "N/A"
+      approved_by:
+        not_approved: "Not Approved"
+      rejected_by:
+        not_rejected: "Not Rejected" 
+      returned_by:
+        not_returned: "Not Returned"
+
