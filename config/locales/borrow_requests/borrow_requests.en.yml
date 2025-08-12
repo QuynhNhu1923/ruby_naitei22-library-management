@@ -1,0 +1,84 @@
+en:
+  admin: 
+    borrow_requests:
+      status_form:
+        save: "Save"
+        cancel: "Cancel"
+      status_display:
+        change: "Change"
+      status:
+        pending: "Pending"
+        approved: "Approved"
+        rejected: "Rejected"
+        returned: "Returned"
+        overdue: "Overdue"
+      
+      index: 
+        title: "Borrow Requests Management"
+        id: "ID"
+        username: "Username"
+        request_date: "Request Date"
+        action: "Action"
+        status: "Status"
+        no_requests: "No borrow requests found"
+      borrow_request:
+        action_view: "View"
+
+      show:
+        title: "Borrow requests items Management"
+        back: "← Back"
+        request_info: 
+          full_name: "Full name"
+          email: "Email"
+          start_date: "Start date"
+          end_date: "End date"
+          request_date: "Request date"
+        status_info: 
+          actual_return_date_label: "Actual return date"
+          admin_note_label: "Admin note"
+          approved_by_label: "Approved by"
+          rejected_by_label: "Rejected by"
+          returned_by_label: "Returned by"
+        book_borrowed:
+          title: "Borrowed Books"
+          book_cover: "Cover"
+          book_title: "Title"
+          book_author: "Author"
+          book_published_year: "Published Year"
+          borrowed_quantity: "Quantity"
+          no_books: "No books borrowed"
+
+      status_change: "Status change"
+      change_status: 
+        title: "Change status"
+        no_change: "No changes made to the status"
+        status_updated: "Status updated successfully"
+        invalid_format: "Invalid date format"
+        past_date: "The actual return date cannot be in the past"
+        future_date: "The actual return date cannot be in the future"
+
+      actual_return_date:
+        not_available: "N/A"
+      admin_note:
+        no_note: "N/A"
+      approved_by:
+        not_approved: "Not Approved"
+      rejected_by:
+        not_rejected: "Not Rejected"
+      returned_by:
+        not_returned: "Not Returned"
+
+      status_form_js:
+        status:
+          pending: "pending"
+          approved: "approved"
+          rejected: "rejected"
+          returned: "returned"
+          overdue: "overdue"
+        error:
+          admin_note_required: "Admin note is required when rejecting a borrow request"
+          invalid_date: "Please select a valid date"
+          date_not_in_future: "Actual return date cannot be in the future"
+          no_change_status: "No changes made to the status"
+      flash:
+        no_access: "You do not have permission to access this page"

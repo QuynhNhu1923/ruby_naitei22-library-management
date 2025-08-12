@@ -34,3 +34,9 @@ datetime_formats:
 
 date_format:
   long: "%B %d, %Y"
+user:
+  default_avatar: "user/default_avatar.png"
+  avatar_size: "150x150"
+book:
+  cover_image_size: "60x80"
+  default_cover_image: "book/default_book.png"

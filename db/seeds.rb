@@ -488,10 +488,10 @@ books = (1..30).to_a
     user_id: users[i % users.size],
     request_date: Date.new(2025, 8, i + 1),
     status: 0,
-    start_date: Date.new(2025, 8, i + 2),
-    end_date: Date.new(2025, 8, i + 12),
+    start_date: Time.zone.now - 4.days,
+    end_date: Time.zone.now - 1.day,
     actual_return_date: nil,
-    admin_note: "Borrow request #{i + 1}",
+    admin_note: nil,
     approved_by_admin_id: nil
   )
 

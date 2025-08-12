@@ -4,6 +4,15 @@ Rails.application.routes.draw do
   get "/auth/:provider", to: redirect { |params, request| "/auth/#{params[:provider]}" }, as: :auth_provider
 
   scope "(:locale)", locale: /en|vi/ do
+    namespace :admin do
+      resources :borrow_requests, only: [:index,:show] do
+        member do
+          get :edit_status
+          patch :change_status
+        end
+      end
+    end
+    
     root "static_pages#home"
 
     get "/home",    to: "static_pages#home",    as: :home

@@ -1,4 +1,6 @@
+# config/i18n-js.yml
 translations:
   - file: "app/javascript/custom/translations.js"
-    patterns:
-      - "*"
+    only: 
+      - "en.admin.borrow_requests.status_form_js"
+      - "vi.admin.borrow_requests.status_form_js"

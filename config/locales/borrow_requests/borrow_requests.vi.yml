@@ -1,0 +1,84 @@
+vi:
+  admin:
+    borrow_requests:
+      status_form:
+        save: "Lưu"
+        cancel: "Hủy"
+      status_display:
+        change: "Thay đổi"
+      status:
+        pending: "Đang chờ"
+        approved: "Đã duyệt"
+        rejected: "Bị từ chối"
+        returned: "Đã trả"
+        overdue: "Quá hạn"
+      
+      index:
+        title: "Quản lý Yêu cầu Mượn sách"
+        id: "ID"
+        username: "Tên người dùng"
+        request_date: "Ngày yêu cầu"
+        action: "Thao tác"
+        status: "Trạng thái"
+        no_requests: "Không có yêu cầu mượn nào"
+      borrow_request:
+        action_view: "Xem"
+
+      show:
+        title: "Quản lý chi tiết Yêu cầu Mượn sách"
+        back: "← Quay lại"
+        request_info:
+          full_name: "Họ và tên"
+          email: "Email"
+          start_date: "Ngày bắt đầu"
+          end_date: "Ngày kết thúc"
+          request_date: "Ngày yêu cầu"
+        status_info:
+          actual_return_date_label: "Ngày trả thực tế"
+          admin_note_label: "Ghi chú của quản trị"
+          approved_by_label: "Được duyệt bởi"
+          rejected_by_label: "Bị từ chối bởi"
+          returned_by_label: "Được trả bởi"
+        book_borrowed:
+          title: "Sách đã mượn"
+          book_cover: "Ảnh bìa"
+          book_title: "Tiêu đề"
+          book_author: "Tác giả"
+          book_published_year: "Năm xuất bản"
+          borrowed_quantity: "Số lượng"
+          no_books: "Không có sách mượn"
+
+      status_change: "Thay đổi trạng thái"
+      change_status:
+        title: "Thay đổi trạng thái"
+        no_change: "Không có thay đổi trạng thái nào"
+        status_updated: "Thay đổi trạng thái thành công"
+        invalid_format: "Định dạng ngày không hợp lệ"
+        past_date: "Ngày trả thực tế không được là ngày trong quá khứ"
+        future_date: "Ngày trả thực tế không được là ngày trong tương lai"
+
+      actual_return_date:
+        not_available: "Trống"
+      admin_note:
+        no_note: "Trống"
+      approved_by:
+        not_approved: "Chưa được xác nhận"
+      rejected_by:
+        not_rejected: "Chưa bị từ chối"
+      returned_by:
+        not_returned: "Chưa được xác nhận trả"
+
+      status_form_js:
+        status:
+          pending: "đang chờ"
+          approved: "đã duyệt"
+          rejected: "bị từ chối"
+          returned: "đã trả"
+          overdue: "quá hạn"
+        error:
+          admin_note_required: "Ghi chú của quản trị là bắt buộc khi từ chối yêu cầu mượn sách"
+          invalid_date: "Vui lòng chọn một ngày hợp lệ"
+          date_not_in_future: "Ngày trả thực tế không được là ngày trong tương lai"
+          no_change_status: "Status không có thay đổi"
+      flash:
+        not_access: "Bạn không có quyền truy cập vào trang này"

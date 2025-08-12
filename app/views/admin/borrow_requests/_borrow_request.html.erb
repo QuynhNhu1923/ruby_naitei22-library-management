@@ -1,0 +1,15 @@
+<tr>
+  <td><%= borrow_request.id %></td>
+  <td><%= borrow_request.user_name %></td>
+  <td><%= l borrow_request.request_date, format: :short %></td>
+  <td>
+    <%= link_to t(".action_view"), 
+                admin_borrow_request_path(borrow_request), 
+                class: "btn btn-sm btn-primary" %>
+  </td>
+  <td>
+    <span class="badge <%= status_colors(borrow_request.status) %>">
+      <%= borrow_request.status.capitalize %>
+    </span>
+  </td>
+</tr>

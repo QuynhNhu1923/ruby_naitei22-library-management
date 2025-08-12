@@ -1,0 +1,51 @@
+<%= turbo_frame_tag "status_form_#{borrow_request.id}" do %>
+  <% if borrow_request.errors.any? %>
+    <div class="alert alert-danger">
+      <% borrow_request.errors.full_messages.each do |msg| %>
+        <p><%= msg %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= form_for borrow_request,
+               url: change_status_admin_borrow_request_path(borrow_request),
+               html: {
+                 method: :patch,
+                 data: {
+                   controller: "status-form",
+                   action: "submit->status-form#validateForm"
+                 }
+               },
+               remote: true do |form| %>
+
+    <div class="mb-2">
+      <%= form.label :status %>
+      <%= form.select :status,
+            options_for_select(display_statuses(borrow_request), borrow_request.status),
+            {},
+            class: "form-select",
+            data: { "status-form-target": "statusSelect", action: "change->status-form#toggleFields" } %>
+    </div>
+
+    <div data-status-form-target="adminNoteField" class="mb-2 d-none">
+      <%= form.label :admin_note %>
+      <%= form.text_area :admin_note, class: "form-control", rows: 3 %>
+    </div>
+
+    <div data-status-form-target="actualReturnDateField" class="mb-2 d-none">
+      <%= form.label :actual_return_date %>
+      <%= form.date_field :actual_return_date, class: "form-control" %>
+    </div>
+
+    <div data-status-form-target="errorMessage" class="text-danger mb-2 d-none"></div>
+
+    <div class="d-flex gap-2">
+      <%= form.submit t(".save"), class: "btn btn-sm btn-success" %>
+      <%= link_to t(".cancel"),
+        admin_borrow_request_path(borrow_request),
+        data: { turbo_frame: "status_form_#{borrow_request.id}" },
+        class: "btn btn-sm btn-secondary" %>
+    </div>
+
+  <% end %>
+<% end %>

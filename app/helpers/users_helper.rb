@@ -1,4 +1,6 @@
 # app/helpers/users_helper.rb
+require "digest/md5"
+
 module UsersHelper
   # Returns the Gravatar for the given user.
   def gravatar_for user, options = {size: Settings.sizes.size_80}

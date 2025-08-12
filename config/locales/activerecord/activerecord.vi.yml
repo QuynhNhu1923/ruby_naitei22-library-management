@@ -71,3 +71,12 @@ vi:
             death_date:
               after_birth: "Ngày mất phải sau ngày sinh"
               in_future: "Ngày mất không được ở tương lai"
+        borrow_request:
+          attributes:
+            end_date:
+              after_start_date: "Ngày kết thúc phải sau ngày bắt đầu"
+            admin_note:
+              blank_if_rejected: "Ghi chú không được để trống khi trạng thái bị từ chối"
+            actual_return_date:
+              blank_if_returned: "Ngày trả thực tế không được để trống khi trạng thái đã trả"
+              cannot_be_future: "Ngày trả thực tế không được sau ngày hiện tại"

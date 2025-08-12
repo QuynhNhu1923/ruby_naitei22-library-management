@@ -96,3 +96,5 @@ end
 
 gem "ransack"
 gem "ruby-lsp", "~> 0.26.1"
+
+gem "whenever", require: false

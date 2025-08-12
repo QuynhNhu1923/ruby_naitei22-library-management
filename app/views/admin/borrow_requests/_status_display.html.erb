@@ -1,0 +1,11 @@
+<%= turbo_frame_tag "status_form_#{borrow_request.id}" do %>
+  <div class="d-flex align-items-center justify-content-center gap-2">
+    <span class="badge px-3 py-2 <%= status_colors(borrow_request.status) %>">
+      <%= borrow_request.status.humanize %>
+    </span>
+    <%= link_to t(".status_display.change"),
+                edit_status_admin_borrow_request_path(borrow_request),
+                data: { turbo_frame: "status_form_#{borrow_request.id}" },
+                class: "btn btn-sm btn-outline-primary" %>
+  </div>
+<% end %>

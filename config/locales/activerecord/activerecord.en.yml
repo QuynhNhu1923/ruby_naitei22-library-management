@@ -71,3 +71,12 @@ en:
             death_date:
               after_birth: "Death date must be after the birth date"
               in_future: "Death date can't be in the future"
+        borrow_request:
+          attributes:
+            end_date:
+              after_start_date: "The end date must be after the start date"
+            admin_note:
+              blank_if_rejected: "Admin note cannot be blank when status is rejected"
+            actual_return_date:
+              blank_if_returned: "Actual return date cannot be blank when status is returned"
+              cannot_be_future: "Actual return date cannot be in the futuredfsd"

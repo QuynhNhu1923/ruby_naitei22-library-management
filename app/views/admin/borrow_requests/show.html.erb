@@ -1,0 +1,123 @@
+<%# app/views/admin/borrow_requests/show.html.erb %>
+<div class="container mt-4">
+  <%= link_to t(".back"), admin_borrow_requests_path, class: "btn btn-secondary ms-3" %>
+  <h3 class="fw-bold mb-4 text-center"><%= t(".title") %></h3>
+  <div class="row g-4">
+    <!-- User avatar and status -->
+    <div class="col-md-3 text-center">
+      <% if @borrow_request.user.avatar.attached? %>
+        <%= image_tag @borrow_request.user_avatar, class: "img-fluid rounded-circle mb-2", size: Settings.user.avatar_size %>
+      <% else %>
+        <%= image_tag Settings.user.default_avatar, class: "img-thumbnail", size: Settings.user.avatar_size %>
+      <% end %>
+
+      <p class="fw-semibold"><%= @borrow_request.user_name %></p>
+      <p class="text-muted small"><%= @borrow_request.user_email %></p>
+
+      <!-- Status badge + Change form frame -->
+      <%= turbo_frame_tag "status_form_#{@borrow_request.id}" do %>
+        <%= render "admin/borrow_requests/status_display", borrow_request: @borrow_request %>
+      <% end %>
+
+    </div>
+
+    <!-- Request info -->
+    <div class="col-md-9">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label"> <%= t(".request_info.full_name") %></label>
+          <input type="text" readonly class="form-control" value="<%= @borrow_request.user_name %>">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label"> <%= t(".request_info.start_date") %></label>
+          <input type="text" readonly class="form-control" value="<%= format_date(@borrow_request.start_date) %>">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label"> <%= t(".request_info.request_date") %></label>
+          <input type="text" readonly class="form-control" value="<%= format_date(@borrow_request.request_date) %>">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label"> <%= t(".request_info.end_date") %></label>
+          <input type="text" readonly class="form-control" value="<%= format_date(@borrow_request.end_date) %>">
+        </div>
+
+        <div class="col-md-12">
+          <label class="form-label"> <%= t(".status_info.approved_by_label") %></label>
+          <%= turbo_frame_tag "approved_by_#{@borrow_request.id}" do %>
+            <%= render "admin/borrow_requests/approved_by", borrow_request: @borrow_request %>
+          <% end %>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label"> <%= t(".status_info.rejected_by_label") %></label>
+          <%= turbo_frame_tag "rejected_by_#{@borrow_request.id}" do %>
+            <%= render "admin/borrow_requests/rejected_by", borrow_request: @borrow_request %>
+          <% end %>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label"> <%= t(".status_info.admin_note_label") %></label>
+          <%= turbo_frame_tag "admin_note_#{@borrow_request.id}" do %>
+            <%= render "admin/borrow_requests/admin_note", borrow_request: @borrow_request %>
+          <% end %>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label"> <%= t(".status_info.returned_by_label") %></label>
+          <%= turbo_frame_tag "returned_by_#{@borrow_request.id}" do %>
+            <%= render "admin/borrow_requests/returned_by", borrow_request: @borrow_request %>
+          <% end %>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label"> <%= t(".status_info.actual_return_date_label") %></label>
+          <%= turbo_frame_tag "actual_return_date_#{@borrow_request.id}" do %>
+            <%= render "admin/borrow_requests/actual_return_date", borrow_request: @borrow_request %>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <%# Book borrowed %>
+  <hr class="my-4">
+  <h5 class="fw-bold mb-3"><%= t(".title") %></h5>
+
+  <% if @borrow_request.borrow_request_items.any? %>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle">
+        <thead class="table-light text-center">
+          <tr>
+            <th scope="col"> <%= t(".book_borrowed.book_cover") %> </th>
+            <th scope="col"> <%= t(".book_borrowed.book_title") %> </th>
+            <th scope="col"> <%= t(".book_borrowed.book_author") %> </th>
+            <th scope="col"> <%= t(".book_borrowed.book_published_year") %> </th>
+            <th scope="col"> <%= t(".book_borrowed.borrowed_quantity") %> </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @borrow_request.borrow_request_items.each do |item| %>
+            <tr>
+              <td class="text-center">
+                <% if item.book_image.attached? %>
+                  <%= image_tag item.book_image, size: Settings.book.cover_image_size, class: "img-thumbnail" %>
+                <% else %>
+                  <%= image_tag Settings.book.default_cover_image, size: Settings.book.cover_image_size, class: "img-thumbnail" %>
+                <% end %>
+              </td>
+              <td><%= item.book_title %></td>
+              <td><%= item.book_author_name %></td>
+              <td class="text-center"><%= item.book_publication_year %></td>
+              <td class="text-center"><%= item.quantity %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p class="text-muted"> <%= t(".book_borrowed.no_books") %> </p>
+  <% end %>
+</div>
