@@ -1,0 +1,13 @@
+vi:
+  admin:
+    users:
+      index:
+        title: "Quản lý Người dùng"
+        id: "ID"
+        name: "Tên"
+        email: "Email"
+        username: "Tên đăng nhập"
+        action: "Hành động"
+        view: "Xem"
+        status: "Trạng thái"
+        no_users: "Không tìm thấy người dùng"

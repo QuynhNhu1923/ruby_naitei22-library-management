@@ -9,7 +9,7 @@
     <% if admin_user? %>
       <nav class="nav flex-column">
         <div class="nav-item"><%= link_to "📊 #{t('sidebar.dashboard')}", "#", class: "nav-link" %></div>
-        <div class="nav-item"><%= link_to "👥 #{t('sidebar.users')}", "#", class: "nav-link" %></div>
+        <div class="nav-item"><%= link_to "👥 #{t('sidebar.users')}", admin_users_path, class: "nav-link" %></div>
         <div class="nav-item"><%= link_to "📥 #{t('sidebar.borrow_requests')}", admin_borrow_requests_path, class: "nav-link" %></div>
         <div class="nav-item"><%= link_to "📚 #{t('sidebar.books')}", "#", class: "nav-link" %></div>
         <div class="nav-item"><%= link_to "✍️ #{t('sidebar.authors')}", "#", class: "nav-link" %></div>

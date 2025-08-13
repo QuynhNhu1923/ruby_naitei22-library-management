@@ -1,0 +1,45 @@
+<div class="container mt-4">
+  <h3 class="fw-bold mb-4 text-center"><%= t(".title") %></h3>
+
+  <% if @users.any? %>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th scope="col"><%= t(".id") %></th>
+            <th scope="col"><%= t(".name") %></th>
+            <th scope="col"><%= t(".email") %></th>
+            <th scope="col"><%= t(".action") %></th>
+            <th scope="col"><%= t(".status") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.id %></td>
+              <td><%= user.name %></td>
+              <td><%= user.email %></td>
+              <td>
+                <%= link_to t(".view"), admin_user_path(user), class: "btn btn-sm btn-primary" %>
+              </td>
+              <td>
+                <% status_class = user.status == "active" ? "badge bg-success" : "badge bg-danger" %>
+                <span class="<%= status_class %>">
+                  <%= user.status.capitalize %>
+                </span>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex justify-content-center mt-3">
+      <%= raw pagy_bootstrap_nav(@pagy) if @pagy.present? %>
+    </div>
+  <% else %>
+    <div class="alert alert-info text-center">
+      <%= t(".no_users") %>
+    </div>
+  <% end %>
+</div>

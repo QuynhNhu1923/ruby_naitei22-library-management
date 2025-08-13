@@ -1,0 +1,13 @@
+en:
+  admin:
+    users:
+      index:
+        title: "User Management"
+        id: "ID"
+        name: "Name"
+        email: "Email"
+        username: "Username"
+        action: "Action"
+        view: "View"
+        status: "Status"
+        no_users: "No users found"
