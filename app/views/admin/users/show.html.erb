@@ -1,0 +1,76 @@
+<div class="container mt-4">
+  <h3 class="fw-bold mb-4 text-center"><%= t(".title", default: "User Details") %></h3>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <p><strong>ID:</strong> <%= @user.id %></p>
+      <p><strong>Name:</strong> <%= @user.name %></p>
+      <p><strong>Email:</strong> <%= @user.email %></p>
+      <% if @user.phone_number.present? %>
+        <p><strong>Phone:</strong> <%= @user.phone_number %></p>
+      <% end %>
+      <% if @user.date_of_birth.present? %>
+        <p><strong>Age:</strong> <%= @age %> years</p>
+      <% end %>
+      <p><strong>Created at:</strong> <%= @user.created_at.strftime("%d/%m/%Y %H:%M") %></p>
+
+      <p>
+        <strong>Status:</strong>
+        <% status_class = @user.active? ? "badge bg-success" : "badge bg-danger" %>
+        <span class="<%= status_class %>"><%= @user.status.capitalize %></span>
+      </p>
+
+      <%= link_to (@user.active? ? "Set Inactive" : "Set Active"), 
+                  toggle_status_admin_user_path(@user), 
+                  method: :patch, 
+                  data: { confirm: "Are you sure?" },
+                  class: "btn btn-warning mt-2" %>
+    </div>
+  </div>
+
+  <h5>Borrow Requests</h5>
+  <% if @borrow_requests.any? %>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>ID</th>
+            <th>Book</th>
+            <th>Status</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @borrow_requests.each do |br| %>
+            <tr>
+              <td><%= br.id %></td>
+              <td><%= br.book&.title || "N/A" %></td>
+              <td>
+                <% status_class = case br.status
+                                 when "approved" then "badge bg-success"
+                                 when "rejected" then "badge bg-danger"
+                                 when "pending" then "badge bg-warning"
+                                 else "badge bg-secondary"
+                                 end %>
+                <span class="<%= status_class %>"><%= br.status.capitalize %></span>
+              </td>
+              <td><%= br.start_date.strftime("%d/%m/%Y") if br.start_date.present? %></td>
+              <td><%= br.end_date.strftime("%d/%m/%Y") if br.end_date.present? %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex justify-content-center mt-3">
+      <%= raw pagy_bootstrap_nav(@pagy) %>
+    </div>
+  <% else %>
+    <div class="alert alert-info text-center">
+      No borrow requests found.
+    </div>
+  <% end %>
+
+  <%= link_to "Back to User List", admin_users_path, class: "btn btn-secondary mt-3" %>
+</div>

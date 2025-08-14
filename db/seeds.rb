@@ -1,155 +1,115 @@
-# Clear existing data (optional - be careful in production!)
-puts "Clearing existing users..."
-BorrowRequestItem.destroy_all
-BorrowRequest.destroy_all
-Review.destroy_all
-Favorite.destroy_all
-BookCategory.destroy_all
-Book.destroy_all
-Category.destroy_all
-Publisher.destroy_all
-Author.destroy_all
-User.destroy_all
+# db/seeds.rb
+require 'faker'
 
-users = []
-30.times do
-  users << User.create!(
+puts "Clearing existing data..."
+BorrowRequestItem.delete_all
+BorrowRequest.delete_all
+BookCategory.delete_all
+Book.delete_all
+Category.delete_all
+Author.delete_all
+Publisher.delete_all
+User.delete_all
+
+# ==== USERS ====
+puts "Seeding users..."
+admin = User.create!(
+  name: "Admin",
+  email: "admin@example.com",
+  password: "password",
+  role: 1, # admin
+  gender: 0,
+  date_of_birth: Date.new(1990, 1, 1),
+  status: 1
+)
+
+users = 10.times.map do |i|
+  User.create!(
     name: Faker::Name.name,
-    email: Faker::Internet.unique.email,
+    email: "user#{i+1}@example.com",
     password: "password",
-    password_confirmation: "password",
-    role: 0, # user
-    gender: [0, 1, 2].sample, # male, female, other
-    date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 80),
-    status: [0, 1].sample,
-    activated_at: [nil, Time.zone.now].sample
-  )
-end
-# Admins
-admins = []
-3.times do
-  admins << User.create!(
-    name: Faker::Name.name,
-    email: Faker::Internet.unique.email,
-    password: "password",
-    password_confirmation: "password",
-    role: 1, # admin
-    gender: [0, 1, 2].sample,
-    date_of_birth: Faker::Date.birthday(min_age: 25, max_age: 60),
-    status: 1,
-    activated_at: Time.zone.now
+    role: 0,
+    gender: [0, 1].sample,
+    date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 60),
+    status: 1
   )
 end
 
-# =============================
-# Authors
-# =============================
+# ==== AUTHORS ====
 puts "Seeding authors..."
-authors = []
-10.times do
-  authors << Author.create!(
+authors = 5.times.map do
+  Author.create!(
     name: Faker::Book.author,
-    bio: Faker::Lorem.paragraph(sentence_count: 5),
-    birth_date: Faker::Date.birthday(min_age: 40, max_age: 90),
-    death_date: [nil, Faker::Date.between(from: 20.years.ago, to: Date.today)].sample,
-    nationality: Faker::Address.country
+    bio: Faker::Lorem.paragraph,
+    birth_date: Faker::Date.birthday(min_age: 40, max_age: 80),
+    nationality: Faker::Nation.nationality
   )
 end
 
-# =============================
-# Publishers
-# =============================
+# ==== PUBLISHERS ====
 puts "Seeding publishers..."
-publishers = []
-5.times do
-  publishers << Publisher.create!(
+publishers = 5.times.map do
+  Publisher.create!(
     name: Faker::Book.publisher,
     address: Faker::Address.full_address,
-    phone_number: Faker::Number.number(digits: 10),
+    phone_number: Faker::PhoneNumber.phone_number[0, 10],
     email: Faker::Internet.email,
     website: Faker::Internet.url
   )
 end
 
-# =============================
-# Categories
-# =============================
+# ==== CATEGORIES ====
 puts "Seeding categories..."
-categories = []
-10.times do
-  categories << Category.create!(
-    name: Faker::Book.unique.genre,
-    description: Faker::Lorem.sentence(word_count: 10)
+categories = 6.times.map do
+  Category.create!(
+    name: Faker::Book.genre,
+    description: Faker::Lorem.sentence
   )
 end
 
-# =============================
-# Books
-# =============================
+# ==== BOOKS ====
 puts "Seeding books..."
-books = []
-50.times do
-  books << Book.create!(
+books = 20.times.map do
+  book = Book.create!(
     title: Faker::Book.title,
-    description: Faker::Lorem.paragraph(sentence_count: 8),
-    publication_year: rand(1950..2025),
-    total_quantity: rand(5..20),
-    available_quantity: rand(1..5),
-    borrow_count: rand(0..50),
+    description: Faker::Lorem.paragraph,
+    publication_year: rand(1990..2025),
+    total_quantity: total_q = rand(5..15),
+    available_quantity: total_q,
+    borrow_count: 0,
     author: authors.sample,
     publisher: publishers.sample
   )
-end
-
-# =============================
-# Book - Categories
-# =============================
-puts "Linking books with categories..."
-books.each do |book|
-  categories.sample(rand(1..3)).each do |category|
-    BookCategory.create!(book: book, category: category)
+  # Gắn 1-3 category cho mỗi book
+  categories.sample(rand(1..3)).each do |cat|
+    BookCategory.create!(book: book, category: cat)
   end
+  book
 end
 
-# =============================
-# Borrow Requests (chi tiết theo trạng thái)
-# =============================
-puts "Seeding borrow requests (by status)..."
-
-# Helper: tạo items cho request
-add_items_for = lambda do |br, books|
-  eligible = books.select { |b| b.available_quantity.to_i > 0 }
-  return if eligible.empty?
-
-  selected = eligible.sample(rand(1..[3, eligible.size].min))
-  selected.each do |book|
-    max_q = [book.available_quantity.to_i, 2].min
-    q = [1, max_q].max
-    BorrowRequestItem.create!(borrow_request: br, book: book, quantity: q)
-  end
-end
-
-n_pending  = 5
-n_approved = 5
-n_rejected = 5
-n_returned = 5
-n_overdue  = 5
-
-# PENDING: chưa duyệt, chưa trả
-n_pending.times do
-  start_date = Faker::Date.between(from: 90.days.ago, to: Date.today)
-  end_date   = start_date + rand(7..21).days
+# ==== BORROW REQUESTS & ITEMS ====
+puts "Seeding borrow requests..."
+statuses = [0, 1, 2, 3, 4] # theo enum của bạn nếu có
+30.times do
+  user = users.sample
+  start_date = Faker::Date.backward(days: rand(1..30))
+  end_date = start_date + rand(5..10).days
 
   br = BorrowRequest.create!(
-    user: users.sample,
-    request_date: start_date - 1.day,
-    status: :pending,
+    user: user,
+    request_date: start_date - rand(1..3).days,
+    status: statuses.sample,
     start_date: start_date,
-    end_date: end_date,
-    admin_note: nil,
-    approved_by_admin_id: nil,
-    rejected_by_admin_id: nil,
-    returned_by_admin_id: nil
+    end_date: end_date
   )
-  add_items_for.call(br, books)
+
+  rand(1..3).times do
+    BorrowRequestItem.create!(
+      borrow_request: br,
+      book: books.sample,
+      quantity: rand(1..2)
+    )
+  end
 end
+
+puts "✅ Seeding completed!"

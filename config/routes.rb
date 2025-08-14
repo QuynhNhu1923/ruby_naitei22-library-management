@@ -6,7 +6,11 @@ Rails.application.routes.draw do
 
   scope "(:locale)", locale: /en|vi/ do
     namespace :admin do
-      resources :users
+      resources :users, only: [:index, :show] do
+        member do
+          patch :toggle_status
+        end
+      end
       resources :borrow_requests, only: [:index,:show] do
         member do
           get :edit_status

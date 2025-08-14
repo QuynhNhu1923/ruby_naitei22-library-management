@@ -11,6 +11,7 @@ gender).freeze
   # - Trường password_digest để lưu hash # rubocop:disable Style/AsciiComments
   # - Phương thức authenticate(password) để xác thực # rubocop:disable Style/AsciiComments
   has_one_attached :avatar
+  has_many :borrow_requests, dependent: :destroy
 
   enum role: {user: 0, admin: 1, super_admin: 2}
   enum gender: {male: 0, female: 1, other: 2}

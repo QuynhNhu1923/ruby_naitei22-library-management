@@ -2,7 +2,7 @@ class BorrowRequest < ApplicationRecord
   OVERDUE = "end_date < ? AND status = ?".freeze
 
   belongs_to :user
-  # belongs_to :book
+  belongs_to :book
   belongs_to :approved_by_admin, class_name: "User", optional: true
   belongs_to :rejected_by_admin, class_name: "User", optional: true
   belongs_to :returned_by_admin, class_name: "User", optional: true
